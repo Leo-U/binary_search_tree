@@ -9,22 +9,27 @@ class Node
 end
 
 class Tree
-  def initialize(data)
-    #@root = return value of build_tree
+  def initialize(data_array)
+    @root = build_tree(data_array)
   end
 end
 
-def build_tree(data, start = 0, stop = data.length - 1)
-  return if start > stop
-  data = data.sort
-  mid = (start + stop) / 2
-  root = Node.new(data[mid])
-  root.left = build_tree(data, start, mid - 1)
-  root.right = build_tree(data, mid + 1, stop)
+def build_tree(data_array)
+  return if data_array.empty?
+  middle_index = (data_array.length - 1) / 2
+  root = Node.new(data_array[middle_index])
+  root.left = build_tree(data_array[0...middle_index])
+  root.right = build_tree(data_array[(middle_index + 1)..-1])
   root
 end
 
-data = [1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324]
+def pretty_print(node = @root, prefix = '', is_left = true)
+  pretty_print(node.right, "#{prefix}#{is_left ? '│   ' : '    '}", false) if node.right
+  puts "#{prefix}#{is_left ? '└── ' : '┌── '}#{node.data}"
+  pretty_print(node.left, "#{prefix}#{is_left ? '    ' : '│   '}", true) if node.left
+end
 
-root = build_tree(data)
-p root
+data_array = [1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324]
+
+root = build_tree(data_array)
+pretty_print root
