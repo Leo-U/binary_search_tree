@@ -9,17 +9,58 @@ class Node
 end
 
 class Tree
+  attr_accessor :root
   def initialize(data_array)
     @root = build_tree(data_array)
   end
 end
 
 def build_tree(data_array)
+  data_array = data_array.sort.uniq
   return if data_array.empty?
   middle_index = (data_array.length - 1) / 2
   root = Node.new(data_array[middle_index])
   root.left = build_tree(data_array[0...middle_index])
   root.right = build_tree(data_array[(middle_index + 1)..-1])
+  root
+end
+
+def insert(root, data)
+  if root.nil?
+    root = Node.new(data)
+  elsif data < root.data
+    root.left = insert(root.left, data)
+  else
+    root.right = insert(root.right, data)
+  end
+  root
+end
+
+def delete(root, data)
+  # recursively go down tree branches until we arrive at the value (or its closest value if value not in tree)
+  if data < root.data
+    root.left = delete(root.left, data)
+  elsif data > root.data
+    root.right = delete(root.right, data)
+  end
+  # do the following:
+  if root.data == data
+    if !root.left.nil? && !root.right.nil?
+      # 1. starting from the node's right subtree, assign a variable to the left field until the left field is nil.
+      max_node = root.right
+      until max_node.left == nil do
+        max_node = max_node.left
+      end
+      # 2. set its value to the largest value in its right subtree (the saved variable).
+      root.data = max_node.data
+      # 3. recursively call 
+      root.right = delete(root.right, max_node.data)
+    elsif root.left.nil?
+      return root.right
+    elsif root.right.nil?
+      return root.left
+    end
+  end
   root
 end
 
@@ -31,5 +72,10 @@ end
 
 data_array = [1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324]
 
-root = build_tree(data_array)
-pretty_print root
+
+tree = Tree.new(data_array)
+
+pretty_print tree.root
+tree.root = delete(tree.root, 324)
+
+pretty_print tree.root
