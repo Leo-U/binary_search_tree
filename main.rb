@@ -109,7 +109,13 @@ def post_order(root, &block)
   yield root.data
 end
 
-
+def height(node, count = 0, arr = [])
+  count += 1
+  height(node.left, count, arr) if !node.left.nil?
+  height(node.right, count, arr) if !node.right.nil?
+  arr << count if node.left.nil? && node.right.nil?
+  arr.max
+end
 
 def pretty_print(node = @root, prefix = '', is_left = true)
   pretty_print(node.right, "#{prefix}#{is_left ? '│   ' : '    '}", false) if node.right
@@ -136,3 +142,5 @@ puts "pre-order: #{pre_order_array = []; pre_order(tree.root){ |a| pre_order_arr
 puts "in-order: #{in_order_array = []; in_order(tree.root){ |a| in_order_array << a}; in_order_array}"
 
 puts "post-order: #{post_order_array = []; post_order(tree.root){ |a| post_order_array << a}; post_order_array}"
+
+p height(find(tree.root, 65))
