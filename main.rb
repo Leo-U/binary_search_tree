@@ -53,17 +53,11 @@ def delete(root, data)
       root.data = successor.data
       root.right = delete(root.right, successor.data)
     elsif root.left.nil?
-      puts root.right.data if !root.right.nil?
-      p nil if root.right.nil?
       return root.right
     elsif root.right.nil?
-      puts root.left.data  if !root.left.nil?
-      p nil if root.left.nil?
       return root.left
     end
   end
-  puts root.data if !root.nil?
-  p nil if root.nil?
   root
 end
 
