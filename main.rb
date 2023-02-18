@@ -51,11 +51,17 @@ def delete(root, data)
       root.data = successor.data
       root.right = delete(root.right, successor.data)
     elsif root.left.nil?
+      puts root.right.data if !root.right.nil?
+      p nil if root.right.nil?
       return root.right
     elsif root.right.nil?
+      puts root.left.data  if !root.left.nil?
+      p nil if root.left.nil?
       return root.left
     end
   end
+  puts root.data if !root.nil?
+  p nil if root.nil?
   root
 end
 
@@ -79,6 +85,6 @@ data_array = [50,30,20,40,32,34,36,70,60,65,80,75,85]
 tree = Tree.new(data_array)
 
 pretty_print tree.root
-tree.root = delete(tree.root, 50)
+tree.root = delete(tree.root, 36)
 
 pretty_print tree.root
