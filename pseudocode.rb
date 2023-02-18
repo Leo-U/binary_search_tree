@@ -44,9 +44,9 @@ root = delete(root, 50)
     60 < 70, so
       root.left = delete(root.left, data)
       60 = 60 & root.left.nil?, so
-      return root.right
-    return root
-return root
+      return root.right # 65
+    return root # 70
+return root # 60
 
 # The resulting tree looks like:
 
@@ -84,9 +84,9 @@ root = delete(root, 36)
       root.right = delete(root.right, successor.data)
       40 = 40 & root.left.nil?, so
       return root.right # nil
-    return root
-  return root
-return root
+    return root # 40
+  return root # 32
+return root # 50
 
 # The resulting tree looks like:
 
