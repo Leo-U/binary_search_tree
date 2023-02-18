@@ -88,6 +88,29 @@ def level_order(root)
   return_me unless block_given?
 end
 
+def pre_order(root, &block)
+  return if root.nil?
+  yield root.data
+  pre_order(root.left, &block)
+  pre_order(root.right, &block)
+end
+
+def in_order(root, &block)
+  return if root.nil?
+  in_order(root.left, &block)
+  yield root.data
+  in_order(root.right, &block)
+end
+
+def post_order(root, &block)
+  return if root.nil?
+  post_order(root.left, &block)
+  post_order(root.right, &block)
+  yield root.data
+end
+
+
+
 def pretty_print(node = @root, prefix = '', is_left = true)
   pretty_print(node.right, "#{prefix}#{is_left ? '│   ' : '    '}", false) if node.right
   puts "#{prefix}#{is_left ? '└── ' : '┌── '}#{node.data}"
@@ -105,4 +128,11 @@ tree = Tree.new(data_array)
 
 pretty_print tree.root
 
-level_order(tree.root) {|node| puts "Node: #{node}, data: #{node.data}, left: #{node.left}, right: #{node.right}"}
+# level_order(tree.root) {|node| puts "Node: #{node}, data: #{node.data}, left: #{node.left}, right: #{node.right}"}
+
+
+puts "pre-order: #{pre_order_array = []; pre_order(tree.root){ |a| pre_order_array << a}; pre_order_array}"
+
+puts "in-order: #{in_order_array = []; in_order(tree.root){ |a| in_order_array << a}; in_order_array}"
+
+puts "post-order: #{post_order_array = []; post_order(tree.root){ |a| post_order_array << a}; post_order_array}"
