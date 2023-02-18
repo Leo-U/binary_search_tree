@@ -44,7 +44,7 @@ def delete(root, data)
   elsif data > root.data
     root.right = delete(root.right, data)
   elsif data == root.data
-    if !root.left.nil? && !root.right.nil?
+    if root.left && root.right
       successor = root.right
       until successor.left.nil? do
         successor = successor.left
@@ -72,7 +72,6 @@ def find(root, data)
   elsif data == root.data
     root
   end
-  # root
 end
 
 
@@ -93,11 +92,7 @@ tree = Tree.new(data_array)
 
 pretty_print tree.root
 
+tree.root = delete(tree.root, 50)
 
-pretty_print tree.root
-
-p find(tree.root, 85)
-
-data_array.each_with_index {|el, i| puts "index: #{i}, node: #{find(tree.root, el)}, data: #{find(tree.root, el).data}"}
 
 pretty_print tree.root
