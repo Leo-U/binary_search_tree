@@ -25,7 +25,6 @@ def delete(root, data)
 end
 
 
-# Illustrate with pseudocode the deletion of 50 from the following binary tree:
 
               50           
            /      \        
@@ -36,6 +35,7 @@ end
     30  34  40      65  75   85
 
 
+# The below pseudocode illustrates the deletion of 50 from the above binary tree:
 
 root = delete(root, 50)
 50 = 50, & l/r fields != nil, so
@@ -61,7 +61,7 @@ return root # 60
 
 
 
-# Now illustrate the deletion of 36 (here's the original tree again):
+# Here's the original tree again:
 
               50           
            /      \        
@@ -72,6 +72,7 @@ return root # 60
     30  34  40      65  75   85
 
 
+# The below pseudocode illustrates the deletion of 36 from the above binary tree:
 
 root = delete(root, 36)
 36 < 50, so
