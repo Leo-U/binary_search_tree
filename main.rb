@@ -36,7 +36,6 @@ def insert(root, data)
   root
 end
 
-
 def delete(root, data)
   if root.nil?
     raise 'Node not in tree'
@@ -61,8 +60,20 @@ def delete(root, data)
   root
 end
 
-
-
+def find(root, data)
+  if root.nil?
+    raise 'Node not in tree'
+  elsif data < root.data
+    root = root.left
+    find(root, data)
+  elsif data > root.data
+    root = root.right
+    find(root, data)
+  elsif data == root.data
+    root
+  end
+  # root
+end
 
 
 def pretty_print(node = @root, prefix = '', is_left = true)
@@ -81,6 +92,12 @@ data_array = [50,30,20,40,32,34,36,70,60,65,80,75,85]
 tree = Tree.new(data_array)
 
 pretty_print tree.root
-tree.root = delete(tree.root, 36)
+
+
+pretty_print tree.root
+
+p find(tree.root, 85)
+
+data_array.each_with_index {|el, i| puts "index: #{i}, node: #{find(tree.root, el)}, data: #{find(tree.root, el).data}"}
 
 pretty_print tree.root
