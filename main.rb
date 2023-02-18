@@ -74,6 +74,19 @@ def find(root, data)
   end
 end
 
+def level_order(root)
+  queue = []
+  return_me = []
+  queue << root
+  until queue.empty? do
+    current = queue.shift
+    return_me << current
+    yield(current) if block_given?
+    queue << current.left if current.left
+    queue << current.right if current.right
+  end
+  return_me unless block_given?
+end
 
 def pretty_print(node = @root, prefix = '', is_left = true)
   pretty_print(node.right, "#{prefix}#{is_left ? '│   ' : '    '}", false) if node.right
@@ -92,7 +105,4 @@ tree = Tree.new(data_array)
 
 pretty_print tree.root
 
-tree.root = delete(tree.root, 50)
-
-
-pretty_print tree.root
+level_order(tree.root) {|node| puts "Node: #{node}, data: #{node.data}, left: #{node.left}, right: #{node.right}"}
