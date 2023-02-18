@@ -38,7 +38,9 @@ end
 
 
 def delete(root, data)
-  if data < root.data
+  if root.nil?
+    raise 'Node not in tree'
+  elsif data < root.data
     root.left = delete(root.left, data)
   elsif data > root.data
     root.right = delete(root.right, data)
