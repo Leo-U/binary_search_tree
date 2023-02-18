@@ -61,7 +61,16 @@ return root
 
 
 
-# Now illustrate the deletion of 36
+# Now illustrate the deletion of 36 (here's the original tree again):
+
+              50           
+           /      \        
+      32              70   
+     /  \            /  \  
+  20      36      60      80
+    \    /  \       \    /  \
+    30  34  40      65  75   85
+
 
 
 root = delete(root, 36)
