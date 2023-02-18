@@ -82,17 +82,8 @@ root = delete(root, 36)
     successor = 40
     root.data = successor.data
       root.right = delete(root.right, successor.data)
-      40 < 50, so
-        root.left = delete(root.left, successor.data)
-        40 > 32, so
-          root.right = delete(root.right, successor.data)
-          40 > 36, so
-            root.right = delete(root.right, successor.data)
-            40 = 40 & root.left.nil?, so
-            return root.right
-          return root
-        return root
-      return root
+      40 = 40 & root.left.nil?, so
+      return root.right # nil
     return root
   return root
 return root
