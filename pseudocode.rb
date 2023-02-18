@@ -72,7 +72,7 @@ return root # 60
     30  34  40      65  75   85
 
 
-# The below pseudocode illustrates the deletion of 36 from the above binary tree:
+# The below pseudocode illustrates the deletion of 36 from the original tree:
 
 root = delete(root, 36)
 36 < 50, so
