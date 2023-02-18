@@ -36,37 +36,6 @@ def insert(root, data)
   root
 end
 
-# def delete(root, data)
-#   # 1. recursively go down tree branches until we arrive at the value (or its closest value if value not in tree)
-#   if data < root.data
-#     root.left = delete(root.left, data)
-#   elsif data > root.data
-#     root.right = delete(root.right, data)
-#   end
-#   # 2. do the following:
-#   if root.data == data
-#     if !root.left.nil? && !root.right.nil?
-#       # 1. starting from the node's right subtree, assign a variable to the left field until the left field is nil.
-#       max_node = root.right
-#       until max_node.left.nil? do
-#         max_node = max_node.left
-#       end
-#       # 2. set its value to the largest value in its right subtree (the saved variable).
-#       root.data = max_node.data
-#       # 3. recursively call 
-#       root.right = delete(root.right, max_node.data)
-#     elsif root.left.nil?
-#       return root.right
-#     elsif root.right.nil?
-#       return root.left
-#     end
-#   end
-#   root
-# end
-
-
-
-# rewrite the delete method
 
 def delete(root, data)
   if data < root.data
