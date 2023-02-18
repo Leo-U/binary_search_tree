@@ -1,6 +1,6 @@
-# The purpose of the following pseudocode is to show the recursive calls by which the delete method in main.rb deletes values that have 2 children.
+# The purpose of the following pseudocode is to illustrate the recursive calls by which the delete method in main.rb deletes values that have 2 children.
 
-# Here's what the delete method looks like:
+# Here's the actual delete method (not pseudocode):
 
 def delete(root, data)
   if data < root.data
