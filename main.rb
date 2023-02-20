@@ -117,6 +117,18 @@ def height(node, count = 0, arr = [])
   arr.max
 end
 
+def depth(root, data, count = 0)
+  if root.nil?
+    raise 'Node not in tree'
+  elsif data < root.data
+    depth(root.left, data, count + 1)
+  elsif data > root.data
+    depth(root.right, data, count + 1)
+  elsif data == root.data
+    count
+  end
+end
+
 def pretty_print(node = @root, prefix = '', is_left = true)
   pretty_print(node.right, "#{prefix}#{is_left ? '│   ' : '    '}", false) if node.right
   puts "#{prefix}#{is_left ? '└── ' : '┌── '}#{node.data}"
@@ -143,4 +155,13 @@ puts "in-order: #{in_order_array = []; in_order(tree.root){ |a| in_order_array <
 
 puts "post-order: #{post_order_array = []; post_order(tree.root){ |a| post_order_array << a}; post_order_array}"
 
-p height(find(tree.root, 65))
+# p height(find(tree.root, 50))
+
+
+pretty_print tree.root
+
+# depth(tree.root, "50")
+
+
+
+p depth(tree.root, 70)
