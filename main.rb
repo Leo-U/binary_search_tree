@@ -109,10 +109,10 @@ def post_order(root, &block)
   yield root.data
 end
 
-def height(node, count = 0, arr = [])
+def height(node, count = -1, arr = [])
   count += 1
-  height(node.left, count, arr) if !node.left.nil?
-  height(node.right, count, arr) if !node.right.nil?
+  height(node.left, count, arr) if node.left
+  height(node.right, count, arr) if node.right
   arr << count if node.left.nil? && node.right.nil?
   arr.max
 end
@@ -127,6 +127,10 @@ def depth(root, data, count = 0)
   elsif data == root.data
     count
   end
+end
+
+def balanced?(root)
+
 end
 
 def pretty_print(node = @root, prefix = '', is_left = true)
@@ -155,13 +159,17 @@ puts "in-order: #{in_order_array = []; in_order(tree.root){ |a| in_order_array <
 
 puts "post-order: #{post_order_array = []; post_order(tree.root){ |a| post_order_array << a}; post_order_array}"
 
-# p height(find(tree.root, 50))
 
 
-pretty_print tree.root
+
 
 # depth(tree.root, "50")
 
+pretty_print tree.root
 
+# balanced?(tree.root)
 
-p depth(tree.root, 70)
+# newTree = Node.new(5)
+# p newTree
+
+p height(tree.root)
