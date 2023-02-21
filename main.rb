@@ -61,17 +61,9 @@ def delete(root, data)
 end
 
 def find(root, data)
-  if root.nil?
-    raise 'Node not in tree'
-  elsif data < root.data
-    root = root.left
-    find(root, data)
-  elsif data > root.data
-    root = root.right
-    find(root, data)
-  elsif data == root.data
-    root
-  end
+  raise 'Node not in tree' if root.nil?
+  return root if data == root.data
+  data < root.data ? find(root.left, data) : find(root.right, data)
 end
 
 def level_order(root)
@@ -159,6 +151,8 @@ def pretty_print(node = @root, prefix = '', is_left = true)
 end
 
 
+
+
 # driver script:
 
 def print_traversals(bst)
@@ -169,13 +163,16 @@ def print_traversals(bst)
 end
 
 def print_balanced_status(bst)
-  puts "It is #{balanced?(bst)} that the tree is balanced."
+  puts balanced?(bst) ? 'The tree is balanced.' : 'The tree is not balanced.'
 end
 
-random_array = (Array.new(15) { rand(1..100) })
+# random_array = (Array.new(15) { rand(1..100) })
+
+random_array = [1,3,5]
 bst = build_tree(random_array)
 
 pretty_print bst
+print_balanced_status(bst)
 
 print_traversals(bst)
 
@@ -192,3 +189,5 @@ pretty_print bst
 print_balanced_status(bst)
 
 print_traversals(bst)
+
+puts find(bst, 5).data
