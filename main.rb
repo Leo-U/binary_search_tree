@@ -129,11 +129,20 @@ def depth(root, data, count = 0)
   end
 end
 
-def balanced?(root)
-
+def balanced?(root, result = [])
+  return true if root.right.nil? && root.left.nil?
+  result << -1 if (root.left.nil? || root.right.nil?)
+  result << height(root.left) if root.left
+  result << height(root.right) if root.right
+  balanced?(root.left, result) if root.left
+  balanced?(root.right, result) if root.right
+  result.each_slice(2).to_a.all? do |el|
+    (el[0] - el[1]).between?(-1, 1)
+  end
 end
 
 def pretty_print(node = @root, prefix = '', is_left = true)
+  raise 'No tree passed' if node.nil?
   pretty_print(node.right, "#{prefix}#{is_left ? '│   ' : '    '}", false) if node.right
   puts "#{prefix}#{is_left ? '└── ' : '┌── '}#{node.data}"
   pretty_print(node.left, "#{prefix}#{is_left ? '    ' : '│   '}", true) if node.left
@@ -143,21 +152,21 @@ end
 
 # data_array = [1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324]
 
-data_array = [50,30,20,40,32,34,36,70,60,65,80,75,85]
+# data_array = [50,30,20,40,32,34,36,70,60,65,80,75,85]
 
 
-tree = Tree.new(data_array)
 
-pretty_print tree.root
+
 
 # level_order(tree.root) {|node| puts "Node: #{node}, data: #{node.data}, left: #{node.left}, right: #{node.right}"}
 
 
-puts "pre-order: #{pre_order_array = []; pre_order(tree.root){ |a| pre_order_array << a}; pre_order_array}"
 
-puts "in-order: #{in_order_array = []; in_order(tree.root){ |a| in_order_array << a}; in_order_array}"
+# puts "pre-order: #{pre_order_array = []; pre_order(tree.root){ |a| pre_order_array << a}; pre_order_array}"
 
-puts "post-order: #{post_order_array = []; post_order(tree.root){ |a| post_order_array << a}; post_order_array}"
+# puts "in-order: #{in_order_array = []; in_order(tree.root){ |a| in_order_array << a}; in_order_array}"
+
+# puts "post-order: #{post_order_array = []; post_order(tree.root){ |a| post_order_array << a}; post_order_array}"
 
 
 
@@ -165,11 +174,39 @@ puts "post-order: #{post_order_array = []; post_order(tree.root){ |a| post_order
 
 # depth(tree.root, "50")
 
-pretty_print tree.root
 
-# balanced?(tree.root)
+
+
 
 # newTree = Node.new(5)
 # p newTree
 
-p height(tree.root)
+# p height(tree.root)
+
+def build_simple_tree(array)
+  root = nil
+  array.each do |data|
+    root = insert(root, data)
+  end
+  root
+end
+
+
+
+
+data_array = []
+rand(16).times do
+  data_array << rand(101)
+end
+
+
+# tree_balanced = Tree.new(data_array).root
+# pretty_print tree_balanced
+# p balanced?(tree_balanced)
+
+# data_array = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]
+
+tree_simple = build_simple_tree(data_array)
+
+pretty_print tree_simple
+p balanced? tree_simple
