@@ -159,66 +159,36 @@ def pretty_print(node = @root, prefix = '', is_left = true)
 end
 
 
+# driver script:
 
-# data_array = [1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324]
+def print_traversals(bst)
+  puts "Breadth first (level-order): #{level_order_array = []; level_order(bst){ |a| level_order_array << a.data}; level_order_array}"
+  puts "Depth first (pre-order): #{pre_order_array = []; pre_order(bst){ |a| pre_order_array << a}; pre_order_array}"
+  puts "Depth first (in-order): #{in_order_array = []; in_order(bst){ |a| in_order_array << a}; in_order_array}"
+  puts "Depth first (post-order): #{post_order_array = []; post_order(bst){ |a| post_order_array << a}; post_order_array}"
+end
 
-# data_array = [50,30,20,40,32,34,36,70,60,65,80,75,85]
+def print_balanced_status(bst)
+  puts "It is #{balanced?(bst)} that the tree is balanced."
+end
 
+random_array = (Array.new(15) { rand(1..100) })
+bst = build_tree(random_array)
 
-# depth(tree.root, "50")
+pretty_print bst
 
+print_traversals(bst)
 
+insert(bst, 200)
+insert(bst, 300)
 
+pretty_print bst
 
+print_balanced_status(bst)
 
-# newTree = Node.new(5)
-# p newTree
+bst = rebalance(bst)
+pretty_print bst
 
-# p height(tree.root)
+print_balanced_status(bst)
 
-# def build_simple_tree(array)
-#   root = nil
-#   array.each do |data|
-#     root = insert(root, data)
-#   end
-#   root
-# end
-
-
-
-
-# data_array = []
-# rand(16).times do
-#   data_array << rand(101)
-# end
-
-# data_array = [1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324]
-
-# tree_balanced = Tree.new(data_array).root
-# pretty_print tree_balanced
-# p balanced?(tree_balanced)
-# rebalance(tree_balanced)
-
-
-# tree_simple = build_simple_tree(data_array)
-# p balanced? tree_simple
-
-# pretty_print tree_simple
-
-# tree_simple = rebalance(tree_simple)
-
-# pretty_print tree_simple
-
-# level_order(tree_balanced) {|node| puts "Node: #{node}, data: #{node.data}, left: #{node.left}, right: #{node.right}"}
-
-
-# puts "Breadth first (level-order): #{level_order_array = []; level_order(tree_balanced){ |a| level_order_array << a.data}; level_order_array}"
-
-# puts "Depth first (pre-order): #{pre_order_array = []; pre_order(tree_balanced){ |a| pre_order_array << a}; pre_order_array}"
-
-# puts "Depth first (in-order): #{in_order_array = []; in_order(tree_balanced){ |a| in_order_array << a}; in_order_array}"
-
-# puts "Depth first (post-order): #{post_order_array = []; post_order(tree_balanced){ |a| post_order_array << a}; post_order_array}"
-
-
-
+print_traversals(bst)
