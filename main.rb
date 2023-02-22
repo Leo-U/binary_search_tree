@@ -180,7 +180,7 @@ bst = Tree.new(random_array)
 print_traversals(bst)
 
 
-pretty_print (bst.root)
+bst.pretty_print (bst.root)
 print_balanced_status(bst)
 
 print_traversals(bst)
@@ -188,12 +188,12 @@ print_traversals(bst)
 bst.insert(bst.root, 200)
 bst.insert(bst.root, 300)
 
-pretty_print (bst.root)
+bst.pretty_print (bst.root)
 
 print_balanced_status(bst)
 
 bst.root = bst.balance(bst.root)
-pretty_print (bst.root)
+bst.pretty_print (bst.root)
 
 print_balanced_status(bst)
 
