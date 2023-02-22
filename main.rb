@@ -13,178 +13,187 @@ class Tree
   def initialize(data_array)
     @root = build_tree(data_array)
   end
-end
 
-def build_tree(data_array)
-  data_array = data_array.sort.uniq
-  return if data_array.empty?
-  middle_index = (data_array.length - 1) / 2
-  root = Node.new(data_array[middle_index])
-  root.left = build_tree(data_array[0...middle_index])
-  root.right = build_tree(data_array[(middle_index + 1)..-1])
-  root
-end
-
-def insert(root, data)
-  if root.nil?
-    root = Node.new(data)
-  elsif data < root.data
-    root.left = insert(root.left, data)
-  else
-    root.right = insert(root.right, data)
+  def build_tree(data_array)
+    puts data_array
+    data_array = data_array.sort.uniq
+    return if data_array.empty?
+    middle_index = (data_array.length - 1) / 2
+    root = Node.new(data_array[middle_index])
+    root.left = build_tree(data_array[0...middle_index])
+    root.right = build_tree(data_array[(middle_index + 1)..-1])
+    root
   end
-  root
-end
 
-def delete(root, data)
-  if root.nil?
-    raise 'Node not in tree'
-  elsif data < root.data
-    root.left = delete(root.left, data)
-  elsif data > root.data
-    root.right = delete(root.right, data)
-  elsif data == root.data
-    if root.left && root.right
-      successor = root.right
-      until successor.left.nil? do
-        successor = successor.left
-      end
-      root.data = successor.data
-      root.right = delete(root.right, successor.data)
-    elsif root.left.nil?
-      return root.right
-    elsif root.right.nil?
-      return root.left
+  def balance(root)
+    if balanced?(root)
+      root
+    else
+      traversed_array = [];
+      pre_order(root){ |a| traversed_array << a.data}
+      build_tree(traversed_array)
     end
   end
-  root
-end
 
-def find(root, data)
-  raise 'Node not in tree' if root.nil?
-  return root if data == root.data
-  data < root.data ? find(root.left, data) : find(root.right, data)
-end
-
-def level_order(root)
-  queue = []
-  return_me = []
-  queue << root
-  until queue.empty? do
-    current = queue.shift
-    return_me << current
-    yield(current) if block_given?
-    queue << current.left if current.left
-    queue << current.right if current.right
+  def find(root, data)
+    raise 'Node not in tree' if root.nil?
+    return root if data == root.data
+    data < root.data ? find(root.left, data) : find(root.right, data)
   end
-  return_me unless block_given?
-end
 
-def pre_order(root, &block)
-  return if root.nil?
-  yield root.data
-  pre_order(root.left, &block)
-  pre_order(root.right, &block)
-end
-
-def in_order(root, &block)
-  return if root.nil?
-  in_order(root.left, &block)
-  yield root.data
-  in_order(root.right, &block)
-end
-
-def post_order(root, &block)
-  return if root.nil?
-  post_order(root.left, &block)
-  post_order(root.right, &block)
-  yield root.data
-end
-
-def height(node, count = -1, arr = [])
-  count += 1
-  height(node.left, count, arr) if node.left
-  height(node.right, count, arr) if node.right
-  arr << count if node.left.nil? && node.right.nil?
-  arr.max
-end
-
-def depth(root, data, count = 0)
-  if root.nil?
-    raise 'Node not in tree'
-  elsif data < root.data
-    depth(root.left, data, count + 1)
-  elsif data > root.data
-    depth(root.right, data, count + 1)
-  elsif data == root.data
-    count
-  end
-end
-
-def balanced?(root, result = [])
-  return true if root.right.nil? && root.left.nil?
-  result << -1 if (root.left.nil? || root.right.nil?)
-  result << height(root.left) if root.left
-  result << height(root.right) if root.right
-  balanced?(root.left, result) if root.left
-  balanced?(root.right, result) if root.right
-  result.each_slice(2).to_a.all? do |el|
-    (el[0] - el[1]).between?(-1, 1)
-  end
-end
-
-def rebalance(root)
-  if balanced?(root)
+  def delete(root, data)
+    if root.nil?
+      raise 'Node not in tree'
+    elsif data < root.data
+      root.left = delete(root.left, data)
+    elsif data > root.data
+      root.right = delete(root.right, data)
+    elsif data == root.data
+      if root.left && root.right
+        successor = root.right
+        until successor.left.nil? do
+          successor = successor.left
+        end
+        root.data = successor.data
+        root.right = delete(root.right, successor.data)
+      elsif root.left.nil?
+        return root.right
+      elsif root.right.nil?
+        return root.left
+      end
+    end
     root
-  else
-    traversed_array = [];
-    pre_order(root){ |a| traversed_array << a}
-    build_tree(traversed_array)
   end
+
+  def insert(root, data)
+    if root.nil?
+      root = Node.new(data)
+    elsif data < root.data
+      root.left = insert(root.left, data)
+    else
+      root.right = insert(root.right, data)
+    end
+    root
+  end
+
+  def level_order(root)
+    queue = []
+    return_me = []
+    queue << root
+    until queue.empty? do
+      current = queue.shift
+      return_me << current
+      yield(current) if block_given?
+      queue << current.left if current.left
+      queue << current.right if current.right
+    end
+    return_me unless block_given?
+  end
+  
+  def pre_order(root, &block)
+    return if root.nil?
+    yield root
+    pre_order(root.left, &block)
+    pre_order(root.right, &block)
+  end
+
+  def in_order(root, &block)
+    return if root.nil?
+    in_order(root.left, &block)
+    yield root
+    in_order(root.right, &block)
+  end
+
+  def post_order(root, &block)
+    return if root.nil?
+    post_order(root.left, &block)
+    post_order(root.right, &block)
+    yield root
+  end
+
+  def height(node, count = -1, arr = [])
+    count += 1
+    height(node.left, count, arr) if node.left
+    height(node.right, count, arr) if node.right
+    arr << count if node.left.nil? && node.right.nil?
+    arr.max
+  end
+
+  def balanced?(root, result = [])
+    return true if root.right.nil? && root.left.nil?
+    result << -1 if (root.left.nil? || root.right.nil?)
+    result << height(root.left) if root.left
+    result << height(root.right) if root.right
+    balanced?(root.left, result) if root.left
+    balanced?(root.right, result) if root.right
+    result.each_slice(2).to_a.all? do |el|
+      (el[0] - el[1]).between?(-1, 1)
+    end
+  end
+
+  def depth(root, data, count = 0)
+    if root.nil?
+      raise 'Node not in tree'
+    elsif data < root.data
+      depth(root.left, data, count + 1)
+    elsif data > root.data
+      depth(root.right, data, count + 1)
+    elsif data == root.data
+      count
+    end
+  end
+
+  def pretty_print(node = @root, prefix = '', is_left = true)
+    raise 'No tree passed' if node.nil?
+    pretty_print(node.right, "#{prefix}#{is_left ? '│   ' : '    '}", false) if node.right
+    puts "#{prefix}#{is_left ? '└── ' : '┌── '}#{node.data}"
+    pretty_print(node.left, "#{prefix}#{is_left ? '    ' : '│   '}", true) if node.left
+  end
+  
 end
 
-def pretty_print(node = @root, prefix = '', is_left = true)
-  raise 'No tree passed' if node.nil?
-  pretty_print(node.right, "#{prefix}#{is_left ? '│   ' : '    '}", false) if node.right
-  puts "#{prefix}#{is_left ? '└── ' : '┌── '}#{node.data}"
-  pretty_print(node.left, "#{prefix}#{is_left ? '    ' : '│   '}", true) if node.left
-end
 
 
-
-
-# driver script:
+#                                                           --------- DRIVER SCRIPT -------------
 
 def print_traversals(bst)
-  puts "Breadth first (level-order): #{level_order_array = []; level_order(bst){ |a| level_order_array << a.data}; level_order_array}"
-  puts "Depth first (pre-order): #{pre_order_array = []; pre_order(bst){ |a| pre_order_array << a}; pre_order_array}"
-  puts "Depth first (in-order): #{in_order_array = []; in_order(bst){ |a| in_order_array << a}; in_order_array}"
-  puts "Depth first (post-order): #{post_order_array = []; post_order(bst){ |a| post_order_array << a}; post_order_array}"
+  puts "Breadth first (level-order): #{level_order_array = []; bst.level_order(bst.root) {|node| level_order_array << node.data}; level_order_array}"
+  puts "Depth first (pre-order): #{pre_order_array = []; bst.pre_order(bst.root){ |node| pre_order_array << node.data}; pre_order_array}"
+  puts "Depth first (in-order): #{in_order_array = []; bst.in_order(bst.root){ |node| in_order_array << node.data}; in_order_array}"
+  puts "Depth first (post-order): #{post_order_array = []; bst.post_order(bst.root){ |node| post_order_array << node.data}; post_order_array}"
 end
 
+
+
 def print_balanced_status(bst)
-  puts balanced?(bst) ? 'The tree is balanced.' : 'The tree is not balanced.'
+  puts bst.balanced?(bst.root) ? 'The tree is balanced.' : 'The tree is not balanced.'
 end
+
+
+
 
 random_array = (Array.new(15) { rand(1..100) })
 
-# random_array = [1,3,5]
-bst = build_tree(random_array)
 
-pretty_print bst
+bst = Tree.new(random_array)
+
+print_traversals(bst)
+
+
+pretty_print (bst.root)
 print_balanced_status(bst)
 
 print_traversals(bst)
 
-insert(bst, 200)
-insert(bst, 300)
+bst.insert(bst.root, 200)
+bst.insert(bst.root, 300)
 
-pretty_print bst
+pretty_print (bst.root)
 
 print_balanced_status(bst)
 
-bst = rebalance(bst)
-pretty_print bst
+bst.root = bst.balance(bst.root)
+pretty_print (bst.root)
 
 print_balanced_status(bst)
 
