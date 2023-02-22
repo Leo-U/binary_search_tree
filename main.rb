@@ -166,9 +166,9 @@ def print_balanced_status(bst)
   puts balanced?(bst) ? 'The tree is balanced.' : 'The tree is not balanced.'
 end
 
-# random_array = (Array.new(15) { rand(1..100) })
+random_array = (Array.new(15) { rand(1..100) })
 
-random_array = [1,3,5]
+# random_array = [1,3,5]
 bst = build_tree(random_array)
 
 pretty_print bst
@@ -189,5 +189,3 @@ pretty_print bst
 print_balanced_status(bst)
 
 print_traversals(bst)
-
-puts find(bst, 5).data
