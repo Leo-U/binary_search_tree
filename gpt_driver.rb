@@ -31,7 +31,7 @@ puts "Node found: #{node.data}"
 
 # test delete method
 tree.delete(tree.root, 7)
-puts "Tree after deleting 8:"
+puts "Tree after deleting 7:"
 tree.pretty_print
 puts ""
 
