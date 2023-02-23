@@ -87,5 +87,5 @@ tree.delete(tree.root, 14)
 tree.pretty_print
 
 puts "Test error raise clause in delete:"
-tree = nil
+tree.root = nil
 tree.delete(tree.root, 13)
