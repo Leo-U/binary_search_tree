@@ -29,12 +29,6 @@ puts ""
 node = tree.find(tree.root, 6)
 puts "Node found: #{node.data}"
 
-# test delete method
-tree.delete(tree.root, 7)
-puts "Tree after deleting 7:"
-tree.pretty_print
-puts ""
-
 # test level_order method
 puts "Level order traversal:"
 tree.level_order(tree.root) {|node| print "#{node.data} "}
@@ -69,3 +63,29 @@ puts ""
 # test pretty_print method
 puts "Pretty print:"
 tree.pretty_print
+
+# test delete method
+tree.delete(tree.root, 7)
+puts "Tree after deleting node with 2 children (node 7):"
+tree.pretty_print
+puts ""
+
+puts "Tree after inserting node 0:"
+tree.insert(tree.root, 0)
+tree.pretty_print
+
+puts "Tree after deleting node 1, which has one left child:"
+tree.delete(tree.root, 1)
+tree.pretty_print
+
+puts "Tree after deleting node 4, which has 1 right child:"
+tree.delete(tree.root, 4)
+tree.pretty_print
+
+puts "Tree after deleting node 14, which has no children:"
+tree.delete(tree.root, 14)
+tree.pretty_print
+
+puts "Test error raise clause in delete:"
+tree = nil
+tree.delete(tree.root, 13)
