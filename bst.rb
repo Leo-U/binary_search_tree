@@ -27,15 +27,13 @@ class Tree
   end
 
   def insert(root, data)
-    if root.nil?
-      root = Node.new(data)
-    elsif data < root.data
-      root.left = insert(root.left, data)
-    else
-      root.right = insert(root.right, data)
-    end
+    return Node.new(data) if root.nil?
+
+    data < root.data ? root.left = insert(root.left, data) : root.right = insert(root.right, data)
+    
     root
   end
+
   
   def delete(root, data)
     if root.nil?
@@ -102,8 +100,6 @@ class Tree
     yield root
   end
 
-
-
   def height(node, count = -1, arr = [])
     count += 1
     height(node.left, count, arr) if node.left
@@ -152,5 +148,5 @@ class Tree
     puts "#{prefix}#{is_left ? '└── ' : '┌── '}#{node.data}"
     pretty_print(node.left, "#{prefix}#{is_left ? '    ' : '│   '}", true) if node.left
   end
-  
+
 end
