@@ -17,29 +17,26 @@ class Tree
   def build_tree(data_array)
     data_array = data_array.sort.uniq
     return if data_array.empty?
+
     middle_index = (data_array.length - 1) / 2
     root = Node.new(data_array[middle_index])
+
     root.left = build_tree(data_array[0...middle_index])
     root.right = build_tree(data_array[(middle_index + 1)..-1])
     root
   end
 
-  def balance(root)
-    if balanced?(root)
-      root
+  def insert(root, data)
+    if root.nil?
+      root = Node.new(data)
+    elsif data < root.data
+      root.left = insert(root.left, data)
     else
-      traversed_array = [];
-      pre_order(root){ |a| traversed_array << a.data}
-      build_tree(traversed_array)
+      root.right = insert(root.right, data)
     end
+    root
   end
-
-  def find(root, data)
-    raise 'Node not in tree' if root.nil?
-    return root if data == root.data
-    data < root.data ? find(root.left, data) : find(root.right, data)
-  end
-
+  
   def delete(root, data)
     if root.nil?
       raise 'Node not in tree'
@@ -64,15 +61,10 @@ class Tree
     root
   end
 
-  def insert(root, data)
-    if root.nil?
-      root = Node.new(data)
-    elsif data < root.data
-      root.left = insert(root.left, data)
-    else
-      root.right = insert(root.right, data)
-    end
-    root
+  def find(root, data)
+    raise 'Node not in tree' if root.nil?
+    return root if data == root.data
+    data < root.data ? find(root.left, data) : find(root.right, data)
   end
 
   def level_order(root)
@@ -88,7 +80,7 @@ class Tree
     end
     return_me unless block_given?
   end
-  
+
   def pre_order(root, &block)
     return if root.nil?
     yield root
@@ -110,12 +102,26 @@ class Tree
     yield root
   end
 
+
+
   def height(node, count = -1, arr = [])
     count += 1
     height(node.left, count, arr) if node.left
     height(node.right, count, arr) if node.right
     arr << count if node.left.nil? && node.right.nil?
     arr.max
+  end
+
+  def depth(root, data, count = 0)
+    if root.nil?
+      raise 'Node not in tree'
+    elsif data < root.data
+      depth(root.left, data, count + 1)
+    elsif data > root.data
+      depth(root.right, data, count + 1)
+    elsif data == root.data
+      count
+    end
   end
 
   def balanced?(root, result = [])
@@ -130,15 +136,13 @@ class Tree
     end
   end
 
-  def depth(root, data, count = 0)
-    if root.nil?
-      raise 'Node not in tree'
-    elsif data < root.data
-      depth(root.left, data, count + 1)
-    elsif data > root.data
-      depth(root.right, data, count + 1)
-    elsif data == root.data
-      count
+  def balance(root)
+    if balanced?(root)
+      root
+    else
+      traversed_array = [];
+      pre_order(root){ |a| traversed_array << a.data}
+      build_tree(traversed_array)
     end
   end
 
