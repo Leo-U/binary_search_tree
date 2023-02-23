@@ -10,19 +10,20 @@ end
 
 class Tree
   attr_accessor :root
-  def initialize(data_array)
-    @root = build_tree(data_array)
+  def initialize(array)
+    @root = build_tree(array)
   end
 
-  def build_tree(data_array)
-    data_array = data_array.sort.uniq
-    return if data_array.empty?
+  def build_tree(array)
+    array = array.sort.uniq
+    return if array.empty?
 
-    middle_index = (data_array.length - 1) / 2
-    root = Node.new(data_array[middle_index])
+    mid_index = (array.size - 1) / 2
+    root = Node.new(array[mid_index])
 
-    root.left = build_tree(data_array[0...middle_index])
-    root.right = build_tree(data_array[(middle_index + 1)..-1])
+    root.left = build_tree(array[0...mid_index])
+    root.right = build_tree(array[(mid_index + 1)..-1])
+
     root
   end
 
