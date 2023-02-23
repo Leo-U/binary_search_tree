@@ -1,4 +1,4 @@
-# The purpose of the following pseudocode is to illustrate the recursive calls by which the delete method in main.rb deletes values that have 2 children.
+# The purpose of the following pseudocode is to illustrate the recursive calls by which the delete method in bst.rb deletes values that have 2 children.
 
 # Here's the actual delete method (not pseudocode):
 
