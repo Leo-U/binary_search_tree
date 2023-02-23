@@ -11,6 +11,12 @@ puts "Original Tree:"
 tree.pretty_print
 puts ""
 
+#unbalance tree & test insert method:
+tree.insert(tree.root, 100)
+puts "Tree after inserting and unbalancing:"
+tree.pretty_print
+puts ""
+
 # test balance method
 tree = Tree.new(data_array)
 puts "Balanced Tree:"
@@ -26,12 +32,6 @@ puts "Node found: #{node.data}"
 # test delete method
 tree.delete(tree.root, 6)
 puts "Tree after deleting 6:"
-tree.pretty_print
-puts ""
-
-# test insert method
-tree.insert(tree.root, 6)
-puts "Tree after inserting 6:"
 tree.pretty_print
 puts ""
 
