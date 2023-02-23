@@ -30,7 +30,7 @@ node = tree.find(tree.root, 6)
 puts "Node found: #{node.data}"
 
 # test delete method
-tree.delete(tree.root, 6)
+tree.delete(tree.root, 7)
 puts "Tree after deleting 6:"
 tree.pretty_print
 puts ""
@@ -62,7 +62,7 @@ puts "Height of the tree: #{tree.height(tree.root)}"
 puts "Is the tree balanced? #{tree.balanced?(tree.root)}"
 
 # test depth method
-puts "Depth of node with data 7: #{tree.depth(tree.root, 7)}"
+puts "Depth of node with data 7: #{tree.depth(tree.root, 8)}"
 puts "Depth of node with data 14: #{tree.depth(tree.root, 14)}"
 puts ""
 
