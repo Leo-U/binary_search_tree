@@ -45,9 +45,10 @@ class Tree
         root.data = succ.data
         root.right = delete(root.right, succ.data)
       end
+
       # if node has one child or less
       root.left ? (return root.left) : (return root.right)
-      
+
     else
       data < root.data ? root.left = delete(root.left, data) : root.right = delete(root.right, data)
     end
@@ -60,9 +61,7 @@ class Tree
     data < root.data ? find(root.left, data) : find(root.right, data)
   end
 
-  def level_order(root)
-    queue = []
-    return_me = []
+  def level_order(root, queue = [], return_me = [])
     queue << root
     until queue.empty? do
       current = queue.shift
