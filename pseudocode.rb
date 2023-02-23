@@ -24,8 +24,6 @@ def delete(root, data)
   root
 end
 
-
-
               50           
            /      \        
       32              70   
@@ -40,12 +38,12 @@ end
 root = delete(root, 50)
 50 = 50, & l/r fields != nil, so
 root.data = successor.data
-    root.right = delete(root.right, successor.data)
-    60 < 70, so
-      root.left = delete(root.left, data)
-      60 = 60 & root.left.nil?, so
-      return root.right # 65
-    return root # 70
+  root.right = delete(root.right, successor.data)
+  60 < 70, so
+    root.left = delete(root.left, data)
+    60 = 60 & root.left.nil?, so
+    return root.right # 65
+  return root # 70
 return root # 60
 
 # The resulting tree looks like:
