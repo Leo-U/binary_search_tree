@@ -34,28 +34,22 @@ class Tree
     
     root
   end
-
   
   def delete(root, data)
-    if root.nil?
-      raise 'Node not in tree'
-    elsif data < root.data
-      root.left = delete(root.left, data)
-    elsif data > root.data
-      root.right = delete(root.right, data)
-    elsif data == root.data
+    raise 'Node not in tree' if root.nil?
+
+    if data == root.data
+      # if node has two children
       if root.left && root.right
-        successor = root.right
-        until successor.left.nil? do
-          successor = successor.left
-        end
-        root.data = successor.data
-        root.right = delete(root.right, successor.data)
-      elsif root.left.nil?
-        return root.right
-      elsif root.right.nil?
-        return root.left
+        succ = root.right; succ = succ.left while succ.left
+        root.data = succ.data
+        root.right = delete(root.right, succ.data)
       end
+      # if node has one child or less
+      root.left ? (return root.left) : (return root.right)
+      
+    else
+      data < root.data ? root.left = delete(root.left, data) : root.right = delete(root.right, data)
     end
     root
   end
