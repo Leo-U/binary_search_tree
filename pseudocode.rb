@@ -37,6 +37,7 @@ end
 
 root = delete(root, 50)
 50 = 50, & l/r fields != nil, so
+successor = 60
 root.data = successor.data
   root.right = delete(root.right, successor.data)
   60 < 70, so
