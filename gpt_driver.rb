@@ -18,7 +18,7 @@ tree.pretty_print
 puts ""
 
 # test balance method
-tree = Tree.new(data_array)
+
 puts "Balanced Tree:"
 tree.root = tree.balance(tree.root)
 p tree
@@ -51,6 +51,10 @@ puts ""
 
 # test height method
 puts "Height of the tree: #{tree.height(tree.root)}"
+
+# test height of nil tree:
+
+puts "Height of nil tree: #{tree.height(nil)}"
 
 # test balanced? method
 puts "Is the tree balanced? #{tree.balanced?(tree.root)}"
