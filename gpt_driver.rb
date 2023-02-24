@@ -19,9 +19,8 @@ puts ""
 
 # test balance method
 
-puts "Balanced Tree:"
+puts "Tree after rebalancing:"
 tree.root = tree.balance(tree.root)
-p tree
 tree.pretty_print
 puts ""
 
