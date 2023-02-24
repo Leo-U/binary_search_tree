@@ -95,8 +95,8 @@ class Tree
   end
 
   def height(node, count = -1, arr = [])
-    count += 1
     return 0 if node.nil?
+    count += 1
     height(node.left, count, arr) if node.left
     height(node.right, count, arr) if node.right
     arr << count if node.left.nil? && node.right.nil?
