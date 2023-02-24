@@ -1,6 +1,7 @@
 # This script tests the code in bst.rb as per the lesson instructions
 
-require_relative 'bst.rb'
+require_relative '../lib/node.rb'
+require_relative '../lib/tree.rb'
 
 def print_traversals(bst)
   puts "Breadth first (level-order): #{level_order_array = []; bst.level_order(bst.root) {|node| level_order_array << node.data}; level_order_array}"
