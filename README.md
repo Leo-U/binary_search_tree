@@ -1,6 +1,8 @@
 ### Binary Search Tree Project
 
-This project is part of The Odin Project curriculum: https://www.theodinproject.com/lessons/ruby-binary-search-trees
+This project is part of The Odin Project curriculum:
+
+https://www.theodinproject.com/lessons/ruby-binary-search-trees
 
 In my opinion, I gained a solid introductory-level understanding of various algorithms relating to binary search trees in the process of completing this project, such as:
 
