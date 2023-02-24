@@ -96,6 +96,7 @@ class Tree
 
   def height(node, count = -1, arr = [])
     count += 1
+    return 0 if node.nil?
     height(node.left, count, arr) if node.left
     height(node.right, count, arr) if node.right
     arr << count if node.left.nil? && node.right.nil?
@@ -114,18 +115,13 @@ class Tree
     end
   end
 
-  def balanced?(root, result = [])
-    return true if root.right.nil? && root.left.nil?
-    result << -1 if (root.left.nil? || root.right.nil?)
-    result << height(root.left) if root.left
-    result << height(root.right) if root.right
-    balanced?(root.left, result) if root.left
-    balanced?(root.right, result) if root.right
-    result.each_slice(2).to_a.all? do |el|
-      (el[0] - el[1]).between?(-1, 1)
-    end
+  def balanced?(root)
+    return true if root.nil?
+    left_height = height(root.left)
+    right_height = height(root.right)
+    (left_height - right_height).abs <= 1 && balanced?(root.left) && balanced?(root.right)
   end
-
+  
   def balance(root)
     if balanced?(root)
       root
