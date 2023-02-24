@@ -62,7 +62,6 @@ puts "Node found: #{node.data}"
 puts "Height of the tree: #{tree.height(tree.root)}"
 
 # test height of a nil tree:
-
 puts "Height of nil tree: #{tree.height(nil)}"
 
 # test depth method
