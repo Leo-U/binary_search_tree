@@ -56,8 +56,6 @@ return root # 60
     30  34  40          75    85
 
 
-
-
 # Here's the original tree again:
 
               50           
