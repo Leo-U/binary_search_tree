@@ -13,7 +13,7 @@ def delete(root, data)
       root.right = delete(root.right, succ.data)
     end
 
-    # if node has one child or less
+    # if node has one child or fewer
     root.left ? (return root.left) : (return root.right)
 
   else
