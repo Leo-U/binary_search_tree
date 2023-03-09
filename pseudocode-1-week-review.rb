@@ -1,4 +1,4 @@
-# This is a review rewrite of pseudocode.rb
+# This is a week-after review rewrite of pseudocode.rb
 
 # Here's the actual delete method (not pseudocode):
 def delete(root, data)
